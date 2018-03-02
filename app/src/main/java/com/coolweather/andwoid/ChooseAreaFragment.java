@@ -4,10 +4,12 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -167,6 +169,7 @@ public class ChooseAreaFragment extends Fragment {
      */
     private void queryFromServer(String address,final String type){
         showProgressDialog();
+        Log.d("MyDebug","place1");
         HttpUtil.sendOkHttpRequest(address, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
@@ -180,7 +183,8 @@ public class ChooseAreaFragment extends Fragment {
             }
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String responseText=response.body().toString();
+                String responseText=response.body().string();
+                Log.d("MyDebug","here");
                 boolean result=false;
                 if("province".equals(type)){
                     result= Utility.handleProvinceResponse(responseText);
